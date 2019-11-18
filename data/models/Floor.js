@@ -1,10 +1,14 @@
-const bookshelf = require('../../bookshelf')
-const Room_detail = require('./Room_detail')
+const bookshelf = require('../bookshelf')
+const RoomDetail = require('./RoomDetail')
+const Building = require('./Building')
 
 module.exports = bookshelf.model.extend({
-    table.name: 'floors',
-    uuid: true,
-    rooms: () => {
-        this this.hasMany(Room_detail)
-    }
+  tableName: 'floors',
+  uuid: true,
+  id: function () {
+    return this.belongsTo(Building)
+  },
+  rooms: function () {
+    return this.hasMany(RoomDetail)
+  }
 })
