@@ -25,9 +25,9 @@ class Controller {
     try {
       const building = await new Building()
       building.save({
-        name: await req.body.name,
+        name: req.body.name,
         // building_id: await req.body.building_id,
-        reference: await req.body.reference
+        reference: req.body.reference
       })
         .then(res.send('Created!'))
     } catch (error) {
@@ -40,15 +40,15 @@ class Controller {
       const building = await new Building()
       building.where({ id: req.params.id })
         .save({
-          name: await req.body.name,
+          name: req.body.name,
           // building_id: await req.body.building_id,
-          reference: await req.body.reference
+          reference: req.body.reference
         },
         { patch: true })
-        .then(res.send('Updated!'))
     } catch (error) {
       res.send('Error: ' + error)
     }
+    res.send('Updated!')
   }
 
   async deleteAll (req, res) {
@@ -56,20 +56,20 @@ class Controller {
       const building = await new Building()
       const buildingDelete = await building.fetchAll()
       buildingDelete.invokeThen('destroy')
-        .then(res.send('All building deleted!!'))
     } catch (error) {
       res.send('error' + error)
     }
+    res.send('All building deleted!!')
   }
 
   async deleteOne (req, res) {
     try {
       const building = await new Building()
       building.where({ id: req.params.id }).destroy()
-        .then(res.send('Deleted!'))
     } catch (error) {
       res.send('error' + error)
     }
+    res.send('Deleted!')
   }
 }
 
