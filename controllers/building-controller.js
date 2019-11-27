@@ -1,4 +1,4 @@
-const Building = require('../data/models/Building')
+const Building = require('../database/models/Building')
 
 class Controller {
   async showAll (req, res) {

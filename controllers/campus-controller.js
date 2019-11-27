@@ -1,11 +1,11 @@
-const Room = require('../data/models/RoomDetail')
+const Campus = require('../database/models/Campus')
 
 class Controller {
   async showAll (req, res) {
     try {
-      const room = await new Room()
-      const roomShow = await room.fetchAll()
-      res.json(roomShow)
+      const campus = await new Campus()
+      const campusShow = await campus.fetchAll()
+      res.json(campusShow)
     } catch (error) {
       console.log('Error: ' + error)
     }
@@ -13,9 +13,9 @@ class Controller {
 
   async show (req, res) {
     try {
-      const room = await new Room()
-      const roomShow = await room.where({ id: req.params.id }).fetch()
-      res.json(roomShow)
+      const campus = await new Campus()
+      const campusShow = await campus.where({ id: req.params.id }).fetch()
+      res.json(campusShow)
     } catch (error) {
       res.send('Error: ' + error)
     }
@@ -23,12 +23,11 @@ class Controller {
 
   async create (req, res) {
     try {
-      const room = await new Room()
-      room.save({
-        number: await req.body.number,
+      const campus = await new Campus()
+      campus.save({
         name: await req.body.name,
         // building_id: await req.body.building_id,
-        description: await req.body.description
+        address: await req.body.address
       })
         .then(res.send('Created!'))
     } catch (error) {
@@ -38,13 +37,12 @@ class Controller {
 
   async update (req, res) {
     try {
-      const room = await new Room()
-      room.where({ id: req.params.id })
+      const campus = await new Campus()
+      campus.where({ id: req.params.id })
         .save({
-          number: await req.body.number,
           name: await req.body.name,
           // building_id: await req.body.building_id,
-          description: await req.body.description
+          address: await req.body.address
         },
         { patch: true })
         .then(res.send('Updated!'))
@@ -55,10 +53,10 @@ class Controller {
 
   async deleteAll (req, res) {
     try {
-      const room = await new Room()
-      const roomDelete = await room.fetchAll()
-      roomDelete.invokeThen('destroy')
-        .then(res.send('All room deleted!!'))
+      const campus = await new Campus()
+      const campusDelete = await campus.fetchAll()
+      campusDelete.invokeThen('destroy')
+        .then(res.send('All Campus deleted!!'))
     } catch (error) {
       res.send('error' + error)
     }
@@ -66,8 +64,8 @@ class Controller {
 
   async deleteOne (req, res) {
     try {
-      const room = await new Room()
-      room.where({ id: req.params.id }).destroy()
+      const campus = await new Campus()
+      campus.where({ id: req.params.id }).destroy()
         .then(res.send('Deleted!'))
     } catch (error) {
       res.send('error' + error)
