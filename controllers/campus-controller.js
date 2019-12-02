@@ -25,11 +25,10 @@ class Controller {
     try {
       const campus = await new Campus()
       campus.save({
-        name: await req.body.name,
-        // building_id: await req.body.building_id,
-        address: await req.body.address
+        name: req.body.name,
+        address: req.body.address
       })
-        .then(res.send('Created!'))
+      res.send('Created!')
     } catch (error) {
       res.send('Error: ' + error)
     }
@@ -41,11 +40,10 @@ class Controller {
       campus.where({ id: req.params.id })
         .save({
           name: await req.body.name,
-          // building_id: await req.body.building_id,
           address: await req.body.address
         },
         { patch: true })
-        .then(res.send('Updated!'))
+      res.send('Updated!')
     } catch (error) {
       res.send('Error: ' + error)
     }
@@ -55,8 +53,8 @@ class Controller {
     try {
       const campus = await new Campus()
       const campusDelete = await campus.fetchAll()
-      campusDelete.invokeThen('destroy')
-        .then(res.send('All Campus deleted!!'))
+      await campusDelete.invokeThen('destroy')
+      res.send('All Campus deleted!!')
     } catch (error) {
       res.send('error' + error)
     }
@@ -66,7 +64,7 @@ class Controller {
     try {
       const campus = await new Campus()
       campus.where({ id: req.params.id }).destroy()
-        .then(res.send('Deleted!'))
+      res.send('Deleted!')
     } catch (error) {
       res.send('error' + error)
     }

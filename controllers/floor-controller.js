@@ -25,11 +25,12 @@ class Controller {
     try {
       const floor = await new Floor()
       floor.save({
-        number: await req.body.number,
-        // building_id: await req.body.building_id,
-        room_quantity: await req.body.room_quantity
+        building_id: req.body.building_id,
+        number: req.body.number,
+        room_quantity: req.body.room_quantity,
+        map: req.body.map
       })
-        .then(res.send('Created!'))
+      res.send('Created!')
     } catch (error) {
       res.send('Error: ' + error)
     }
@@ -40,12 +41,13 @@ class Controller {
       const floor = await new Floor()
       floor.where({ id: req.params.id })
         .save({
-          number: await req.body.number,
-          // building_id: await req.body.building_id,
-          room_quantity: await req.body.room_quantity
+          building_id: req.body.building_id,
+          number: req.body.number,
+          room_quantity: req.body.room_quantity,
+          map: req.body.map
         },
         { patch: true })
-        .then(res.send('Updated!'))
+      res.send('Updated!')
     } catch (error) {
       res.send('Error: ' + error)
     }
@@ -53,10 +55,10 @@ class Controller {
 
   async deleteAll (req, res) {
     try {
-      const floor = await new F()
+      const floor = await new Floor()
       const floorDelete = await floor.fetchAll()
       floorDelete.invokeThen('destroy')
-        .then(res.send('All floor deleted!!'))
+      res.send('All floor deleted!!')
     } catch (error) {
       res.send('error' + error)
     }
@@ -66,7 +68,7 @@ class Controller {
     try {
       const floor = await new Floor()
       floor.where({ id: req.params.id }).destroy()
-        .then(res.send('Deleted!'))
+      res.send('Deleted!')
     } catch (error) {
       res.send('error' + error)
     }
