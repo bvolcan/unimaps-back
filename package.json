@@ -6,9 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
-    "migrate": "cd database && knex migrate:latest",
-    "rollback": "cd database && knex migrate:rollback",
-    "seed": "cd database && knex seed:run"
+    "knex": "--knexfile database/knexfile.js"
   },
   "repository": {
     "type": "git",
