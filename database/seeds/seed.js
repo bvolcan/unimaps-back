@@ -28,7 +28,7 @@ exports.seed = async (knex, Promise) => {
       id: uuidv4(),
       building_id: knex('buildings').where({ name: 'Delfim Mendes Silveira' }).select('id'),
       number: 1,
-      room_quantity: 81
+      room_quantity: 87
     },
     {
       id: uuidv4(),
